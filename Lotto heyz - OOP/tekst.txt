@@ -1,0 +1,368 @@
+'use strict';
+
+// H T M L  Elements
+
+const ballsContainer = document.querySelector('.balls__container');
+const balls = document.querySelectorAll('.ball');
+
+const introSection = document.querySelector('.intro__section');
+const loopSection = document.querySelector('.loop__section');
+const loopBallsDivs = document.querySelectorAll('.kolo__ball');
+const infoBalls = document.querySelector('.selected__balls');
+const displayBall = document.querySelector('.display__ball');
+
+const FormPopup = document.querySelector('.popup');
+
+const submitName = document.querySelector('.nameSubmit');
+const textName = document.querySelector('.name');
+
+// Buttons
+const btnStart = document.querySelector('.start');
+const redBtn = document.querySelector('.red__all');
+const greenBtn = document.querySelector('.green__all');
+const blueBtn = document.querySelector('.blue__all');
+const purpleBtn = document.querySelector('.purple__all');
+const yellowBtn = document.querySelector('.yellow__all');
+const orangeBtn = document.querySelector('.orange__all');
+const blackBtn = document.querySelector('.black__all');
+
+// Inputs
+const inputPayment = document.querySelector('.payment__input');
+const nameInput = document.querySelector('.insertName');
+
+
+// Nodelist -> array
+const javaScriptBalls = [...balls];
+const ballsDivs = [...loopBallsDivs];
+
+//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+//IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+
+
+class Application{
+    allNumbers = [];  // Svi brojevi koje mozemo odabrati
+    _maxBalls = 6;    // Maximalan broj odabranih brojeva, ne zove se dzaba lucky six :)
+    pickedBalls = [];  // Loptice koje odaberemo
+    obtainedNumbers = []; // Naše loptice koje su prikazane u kolu
+    _ukupno = 0; // ukupno++ svaki put kad odaberemo novu lopticu
+
+    #balance = 100; // Pocetni balance 100
+
+    constructor(name){
+    this.name=name;
+
+    this.sortAllNumbers();
+    this.starter();
+    ballsContainer.addEventListener('click', this._pickBall.bind(this));
+    }
+
+    get getBalance(){
+        return this.#balance;
+    }
+
+    set setBalance(value){
+        this.#balance +=value;
+    }
+
+    sortAllNumbers(){
+        balls.forEach(ball => {
+            const ballNumber = +ball.innerHTML;
+        
+            this.allNumbers.push(ballNumber);
+        });
+
+        this.allNumbers.sort((a,b) => a-b); // sortiramo taj array
+    }
+
+
+       // <<<<<<<< METODA #2 >>>>>>>>
+       // Metoda koja ce uneseno ime ispraviti ukoliko ima potrebe, tj. ispravit ce pravopisne greske, postaviti uneseno ime u html elemente kojima treba postavit ime
+       // i otvoriti applikaciju (skloniti hidden klase)
+
+       starter(){
+         let nick = this.name[0].toUpperCase() + this.name.slice(1).toLowerCase();
+         this.name = nick;
+
+         // Set nick in dom manipulation
+
+         textName.textContent = this.name.split(' ').join(''); // Bez razmaka ime
+
+         FormPopup.classList.add('hidden');
+         introSection.classList.toggle('hidden');
+         document.querySelector('.nav__links').classList.remove('hidden');
+       }
+
+    
+    
+         // <<<<<<<< METODA #5 >>>>>>>>
+         // Ova metoda briše style odabranim brojevima (lopticama)
+
+         unStyleBalls(){
+            balls.forEach(ball=>{
+                ball.style.opacity='1';
+            });
+         }
+
+        // <<<<<<<< METODA #6 >>>>>>>>
+        // Ova metoda nam pravi unikatan array, sa odredenom duzinom (length)
+
+        generateNum(arr){
+            let numbers = [];
+            let thisNums = this.allNumbers;
+            
+            const generate = function(){
+                const randomNum = Math.trunc(Math.random()*(thisNums.length))+1;
+                if(numbers.length < arr.length) {
+                    if(!numbers.includes(randomNum)){
+                        numbers.push(randomNum);
+                    }
+                } else {
+                    clearInterval(loopRand);
+                }
+            }
+        
+            const loopRand = setInterval(generate, 1);
+        
+            return numbers;
+        }
+
+
+       // <<<<<<<< METODA #7 >>>>>>>
+       // Ova metoda nam u toku igre oznacava loptice (brojeve) koje je izbacilo kolo
+       // a nalaze se u nasim odabranim brojevima
+
+       markCorrectNum(num){
+        const childEls = infoBalls.querySelectorAll('.ball_place');
+
+
+        childEls.forEach(div=>{
+            if(div.innerHTML===num+''){
+                div.style.marginRight = '14px';
+                div.style.transform = 'scale(1.060)';
+                div.style.border = '5px solid  #47d147';
+            }
+        });
+       }
+
+
+        // <<<<<<<< METODA # >>>>>>>>
+        // Ova metoda je glavna metoda, ona pokreće kolo i naša igra zvanično počinje
+
+   selectBallsDiv(arr){
+          // Vracamo style elementu da bude vidljiv
+    infoBalls.style.transform = 'translateX(0%)';
+
+    // Selektujemo sve divove sa klasom .ball_place unutar ovog diva
+    const childEls = infoBalls.querySelectorAll('.ball_place');
+
+    // Za svaki izabrani broj (pickedBalls) stavi childEls[index] divu taj broj
+
+    arr.forEach(function(num, i){
+       // Prvo moramo naci div od tog broja, ali moramo taj broj pretvori u string
+       // vise je nacina, ja sam odabrao ovaj.
+
+       const ball = javaScriptBalls.find(ball => ball.innerHTML === num+'');
+
+       // Ovo radimo kako bi izvukli colorAtribute za taj broj
+       // Morali smo takoder pretvoriti nodelist u obican array da bi koristili metodu
+
+       // Kada smo nasli taj div, uzimamo njegov atribute za boju i postavljamo
+       // za background childEls diva, taj atribut, a takoder i broj u taj div
+
+       const bg = ball.getAttribute('data-bg');
+
+       childEls[i].textContent = num;
+       childEls[i].style.background = bg;
+    });
+   }
+
+
+    
+    _startLoop(){
+        let loopedNumbers = [];
+
+        // Pocetna loptica
+        let i=0;
+
+        const th = this;
+        
+
+        // Generisanje brojeva za loop
+        const numbersLenght = Array.from({length: 28}, () => Math.floor(Math.random() * this.allNumbers.length)+1);
+        
+        let gameNumbers = this.generateNum(numbersLenght);
+        
+        
+        
+        const kolo = function(){
+         
+          
+            loopedNumbers.push(gameNumbers[i]);
+
+            //137 i 79
+        
+            if(th.pickedBalls.includes(gameNumbers[i])) {
+                console.log(gameNumbers[i]);
+                th.obtainedNumbers.push(gameNumbers[i]);
+                th.markCorrectNum(gameNumbers[i]);
+            }  
+        
+            displayBall.classList.remove('hidden');
+        
+
+            // Uzmi div koji ima tu lopticu, odnosno taj broj u innerHTML, te kasnije izvuci
+            // background, kako bi znali koje boje ce biti div
+            const divWithGameNumber = javaScriptBalls.find(div => div.innerHTML===gameNumbers[i] + ''); 
+        
+        
+            // ↕↕↕
+            const divStyle = window.getComputedStyle(divWithGameNumber);
+            const bg = divStyle.getPropertyValue('background');
+        
+        
+            // Kolo - prikazivanje loptice u kolu
+            displayBall.innerHTML = gameNumbers[i];
+            displayBall.style.background = bg;
+        
+            // Remove after
+            ballsDivs[i].classList.add('removePseudo');
+        
+            const html = `${gameNumbers[i]}`;
+        
+        setTimeout(() => {
+        
+                 // Add before
+                ballsDivs[i-1].classList.add('addPseudo');
+                
+                // Postavi innerHTML trenutni broj
+               // ballsDivs[i-1].innerHTML = gameNumbers[i-1];
+               ballsDivs[i-1].insertAdjacentHTML('afterbegin', html);
+            
+                // Postavi tom divu background od loptice/broja
+                ballsDivs[i-1].style.background = bg;
+        
+                // Morao sam [i-1] zbog toga sto je timeout funkcija i onda ce uvijek kasniti,
+                // a ispod imamo i++, sto ce se ucitati prije ove funkcije 
+             
+        }, 300);
+          
+        
+          // Čekiramo je li igrač pogodio odredeni broj brojeva, u ovom slucaju 5 i onda
+          // mjesto na kojem je zadnji tacan broj izasao, mnozimo sa ulogom
+         
+            i++;
+        
+          
+            if(loopedNumbers.length === gameNumbers.length && th.obtainedNumbers.length>2){
+                // Izvlacimo zadnji dobijeni broj i trazimo div kojem je dodijeljen taj broj
+                // kako bi mogli pomnoziti ulog sa data-earn
+                
+                const arrCopy = [...th.obtainedNumbers];
+                const lastNum = arrCopy.pop();
+        
+               for (const div of ballsDivs){
+                 if(div.childNodes[0].data === lastNum + ''){
+                     const dataEarn = +div.getAttribute('data-earn');
+                     th.setBalance = Number(inputPayment.value)*dataEarn;
+                 }
+               };
+              
+                  
+              }
+          
+        
+        
+            if(i===gameNumbers.length) clearInterval(intFun);
+        
+        
+      
+        
+        };
+        
+        const intFun = setInterval(kolo, 1000);
+         
+    
+    }
+
+    // <<<<<<<< METODA #1 >>>>>>>>
+    // Metoda koja ce za svaki ball div, ubaciti u array allNumbers brojeve iz divova
+    // sto znaci da kad promijenimo nesto u htmlu, automatski se azurira aplikacija
+
+  
+
+       // <<<<<<<< METODA #3 >>>>>>>>
+       // Metoda koja nam omogucava da odaberemo brojeve (loptice) s kojima zelimo igrati
+       // te kada bude this.ukupno === 6, spremni smo za igru
+
+       _accesStart(){
+           console.log(1);
+        const payValue = +inputPayment.value;
+        if(inputPayment.value && payValue>0 && this.getBalance > payValue){
+            this.unStyleBalls();
+            introSection.classList.toggle('hidden');
+            loopSection.classList.toggle('hidden');
+            this._startLoop();
+        }
+       }
+
+       // <<<<<<<< METODA #4 >>>>>>>>
+        // Ova metoda omogucava funkcionalnost start buttonu
+
+        startBtnFunctionality(){
+               // Brisemo stari
+    btnStart.style.background = 'none';
+    // Stavljamo novi
+    btnStart.classList.add('startBtnStyle');
+
+    btnStart.addEventListener('click', this._accesStart.bind(this));
+
+
+    // Omogucavamo pokretanje igre, odnosno KOLA
+    
+        }
+
+       _pickBall(e){
+        const ball = e.target.closest('.ball');
+        const ballNumber = +ball.innerHTML;  
+        console.log(ballNumber);
+        
+        if(!ball) return; 
+
+        if(!this.pickedBalls.includes(ballNumber)){
+            if(this._ukupno<this._maxBalls){
+                this._ukupno++;
+                this.pickedBalls.push(ballNumber);
+                ball.style.opacity = '0.5';
+                this.selectBallsDiv(this.pickedBalls);
+            
+            } else {
+                this.startBtnFunctionality();
+                setTimeout(() => {
+                    alert('Sada mozete zapoceti igru');
+                }, 100);
+            }
+        } 
+       }
+
+
+        
+
+
+
+     
+
+
+}
+
+let app = [];
+
+
+submitName.addEventListener('click', function(e){
+    e.preventDefault();
+if(nameInput.value){
+    const name = nameInput.value;
+    const acc = new Application(name);
+    app.push(acc);
+}
+
+});

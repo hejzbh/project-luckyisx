@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+
+    <!--Font awesome, fonts and ...-->
+    <script src="https://kit.fontawesome.com/22f5ba3980.js" crossorigin="anonymous"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+  <div class="wrap">
+
+    <div class="reset__section popSec popHidden">
+        <h3 class="reset__content"><span class="name"></span>, tvoj ukupan broj pogodenih brojeva u karijeri je:<span class="pogodeneLoptice"></span></h3>
+    </div>
+
+    <div class="money__section popSec popHidden">
+        <h3><span class="name"></span>, tvoj balance iznosi:<span class="balance"></span></h3>
+    </div>
+      
+      <nav>
+          <div class="navInner container">
+              <div class="logo">
+                  <img src="./img/dice-30551.png" alt="">
+                  <p>Good luck <span class="name"></span></p>
+              </div>
+
+              <ul class="nav__links hidden">
+                  <li class="nav__link" data-section="reset__section">Reset</li>
+                  <li class="nav__link" data-section="money__section">Money</li>
+                  <li class="nav__link back">Back</li>
+              </ul>
+          </div>
+      </nav>
+
+      <form class="popup ">
+          <p>Insert your name</p>
+          <input type="text" class="insertName" maxlength="10" required>
+          <button class="nameSubmit"><span>Submit</span></button>
+      </form>
+      <div class="selected__balls">
+        <div class="ball_place"></div>
+        <div class="ball_place"></div>
+        <div class="ball_place"></div>
+        <div class="ball_place"></div>
+        <div class="ball_place"></div>
+        <div class="ball_place"></div>
+    </div>
+
+      <div class="intro__section hidden">
+          <div class="container">
+              <div class="main">
+            
+                  <div class="title"><p>Izaberi 6 brojeva</p></div>
+                  <div class="balls__container">
+                      <div class="red__row row">
+                          <div class="ball red__ball" data-bg="rgb(186,37,5)">1</div>
+                          <div class="ball red__ball" data-bg="rgb(186,37,5)">8</div>
+                          <div class="ball red__ball" data-bg="rgb(186,37,5)">15</div>
+                          <div class="ball red__ball" data-bg="rgb(186,37,5)">22</div>
+                          <div class="ball red__ball" data-bg="rgb(186,37,5)">29</div>
+                          <div class="ball red__ball" data-bg="rgb(186,37,5)">36</div>
+                          <button class="red__all"></button>
+                      </div>
+                      <div class="green__row row">
+                        <div class="ball green__ball" data-bg="rgb(0,172,51)">2</div>
+                        <div class="ball green__ball" data-bg="rgb(0,172,51)">9</div>
+                        <div class="ball green__ball" data-bg="rgb(0,172,51)">16</div>
+                        <div class="ball green__ball" data-bg="rgb(0,172,51)">23</div>
+                        <div class="ball green__ball" data-bg="rgb(0,172,51)">30</div>
+                        <div class="ball green__ball" data-bg="rgb(0,172,51)">37</div>
+                        <button class="green__all"></button>
+                    </div>
+                    <div class="blue__row row">
+                        <div class="ball blue__ball" data-bg="rgb(0,107,184)">3</div>
+                        <div class="ball blue__ball" data-bg="rgb(0,107,184)">10</div>
+                        <div class="ball blue__ball" data-bg="rgb(0,107,184)">17</div>
+                        <div class="ball blue__ball" data-bg="rgb(0,107,184)">24</div>
+                        <div class="ball blue__ball" data-bg="rgb(0,107,184)">31</div>
+                        <div class="ball blue__ball" data-bg="rgb(0,107,184)">38</div>
+                        <button class="blue__all"></button>
+                    </div>
+                    <div class="purple__row row">
+                        <div class="ball purple__ball" data-bg="rgb(123,0,126)">4</div>
+                        <div class="ball purple__ball" data-bg="rgb(123,0,126)">11</div>
+                        <div class="ball purple__ball" data-bg="rgb(123,0,126)">18</div>
+                        <div class="ball purple__ball" data-bg="rgb(123,0,126)">25</div>
+                        <div class="ball purple__ball" data-bg="rgb(123,0,126)">32</div>
+                        <div class="ball purple__ball" data-bg="rgb(123,0,126)">39</div>
+                        <button class="purple__all"></button>
+                    </div>
+                    <div class="yellow__row row">
+                        <div class="ball yellow__ball" data-bg="rgb(192,192,4)">5</div>
+                        <div class="ball yellow__ball" data-bg="rgb(192,192,4)">12</div>
+                        <div class="ball yellow__ball" data-bg="rgb(192,192,4)">19</div>
+                        <div class="ball yellow__ball" data-bg="rgb(192,192,4)">26</div>
+                        <div class="ball yellow__ball" data-bg="rgb(192,192,4)">33</div>
+                        <div class="ball yellow__ball" data-bg="rgb(192,192,4)">40</div>
+                        <button class="yellow__all"></button>
+                    </div>
+                    <div class="orange__row row">
+                        <div class="ball orange__ball" data-bg="rgb(208,135,3)">6</div>
+                        <div class="ball orange__ball" data-bg="rgb(208,135,3)">13</div>
+                        <div class="ball orange__ball" data-bg="rgb(208,135,3)">20</div>
+                        <div class="ball orange__ball" data-bg="rgb(208,135,3)">27</div>
+                        <div class="ball orange__ball" data-bg="rgb(208,135,3)">34</div>
+                        <div class="ball orange__ball" data-bg="rgb(208,135,3)">41</div>
+                        <button class="orange__all"></button>
+                    </div>
+                    <div class="black__row row">
+                        <div class="ball black__ball" data-bg="rgb(4,4,15)">7</div>
+                        <div class="ball black__ball" data-bg="rgb(4,4,15)">14</div>
+                        <div class="ball black__ball" data-bg="rgb(4,4,15)">21</div>
+                        <div class="ball black__ball" data-bg="rgb(4,4,15)">28</div>
+                        <div class="ball black__ball" data-bg="rgb(4,4,15)">35</div>
+                        <div class="ball black__ball" data-bg="rgb(4,4,15)">42</div>
+                        <button class="black__all"></button>
+                    </div>
+                  </div>
+                  <div class="button-row">
+                    <div class="input-div">
+                        <input type="text" maxlength="4" class="payment__input" name="uplata" required>
+                        <label for="uplata" class="form__label">Uplata</label>
+                    </div>
+                    <button class="start">Start</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+      <div class="loop__section hidden">
+          <!--Video bakcground -->
+          <video muted loop autoplay class="video__background">
+              <source src="./img/Tunnel - 26475.mp4" type="video/mp4">
+          </video>
+         
+          <div class="loop__inner container">
+<div class="kolo__okvir">
+    <div class="kolo__cont">
+        <div class="kolo__balls">
+
+          <div class="kolo__ball" data-earn="10000">
+              <p><i class="fa-solid fa-caret-right"></i> 10000</p>
+          </div>
+          <div class="kolo__ball" data-earn="7500">
+              <p><i class="fa-solid fa-caret-right"></i> 7500</p>
+          </div>
+          <div class="kolo__ball"  data-earn="5000">
+              <p><i class="fa-solid fa-caret-right"></i> 5000</p>
+          </div>
+          <div class="kolo__ball"  data-earn="2500">
+              <p><i class="fa-solid fa-caret-right"></i> 2500</p>
+          </div>
+          <div class="kolo__ball"  data-earn="1000">
+              <p><i class="fa-solid fa-caret-right"></i> 1000</p>
+          </div>
+          <div class="kolo__ball"  data-earn="500">
+              <p><i class="fa-solid fa-caret-right"></i> 500</p>
+          </div>
+  
+          <div class="kolo__ball"  data-earn="300">
+              <p><i class="fa-solid fa-caret-right"></i> 300</p>
+          </div>
+          <div class="kolo__ball"  data-earn="200">
+              <p><i class="fa-solid fa-caret-right"></i> 200</p>
+          </div>
+          <div class="kolo__ball"  data-earn="150">
+              <p><i class="fa-solid fa-caret-right"></i> 150</p>
+          </div>
+          <div class="kolo__ball"  data-earn="100">
+              <p><i class="fa-solid fa-caret-right"></i> 100</p>
+          </div>
+          <div class="kolo__ball"  data-earn="90"> 
+              <p><i class="fa-solid fa-caret-right"></i>90</p>
+          </div>
+          <div class="kolo__ball"  data-earn="85">
+              <p><i class="fa-solid fa-caret-right"></i> 85</p>
+          </div>
+    
+        </div>
+
+<div class="kolo">
+<img src="./img/koloPNG.png" alt="">
+<div class="display__ball hidden"></div>
+
+</div>
+
+<div class="kolo__balls">
+
+
+<div class="kolo__ball"  data-earn="80">
+<p><i class="fa-solid fa-caret-right"></i> 80</p>      
+</div>
+<div class="kolo__ball"  data-earn="75">
+<p><i class="fa-solid fa-caret-right"></i> 75</p>
+</div>
+<div class="kolo__ball"  data-earn="70">
+<p><i class="fa-solid fa-caret-right"></i> 70</p>
+</div>
+<div class="kolo__ball"  data-earn="65">
+<p><i class="fa-solid fa-caret-right"></i> 65</p>
+</div>
+<div class="kolo__ball"  data-earn="60">
+<p><i class="fa-solid fa-caret-right"></i> 60</p>
+</div>
+<div class="kolo__ball"  data-earn="55">
+<p><i class="fa-solid fa-caret-right"></i> 55</p>
+</div>
+<div class="kolo__ball"  data-earn="50">
+<p><i class="fa-solid fa-caret-right"></i> 50</p>
+</div>
+<div class="kolo__ball"  data-earn="45">
+<p><i class="fa-solid fa-caret-right"></i> 45</p>
+</div>
+<div class="kolo__ball"  data-earn="40">
+<p><i class="fa-solid fa-caret-right"></i> 40</p>
+</div>
+<div class="kolo__ball"  data-earn="35">
+<p><i class="fa-solid fa-caret-right"></i> 35</p>
+</div>
+<div class="kolo__ball"  data-earn="30">
+<p><i class="fa-solid fa-caret-right"></i> 30</p>
+</div>
+<div class="kolo__ball"  data-earn="25">
+<p><i class="fa-solid fa-caret-right"></i> 25</p>
+</div>
+
+</div>
+
+
+
+</div>
+
+<div class="kolo__balls__under">
+<div class="kolo__ball"  data-earn="4">
+<p><i class="fa-solid fa-caret-right"></i> 4</p>      
+</div>
+<div class="kolo__ball"  data-earn="3">
+<p><i class="fa-solid fa-caret-right"></i> 3</p>      
+</div>
+<div class="kolo__ball"  data-earn="2">
+<p><i class="fa-solid fa-caret-right"></i> 2</p>      
+</div>
+<div class="kolo__ball"  data-earn="1">
+<p><i class="fa-solid fa-caret-right"></i> 1</p>      
+</div>
+
+</div>
+</div>
+          </div>
+      </div>
+
+
+  </div>
+
+<!--
+  <div class="kolo">
+     <img src="./img/koloPNG.png" alt="">
+     <div class="ball red__ball" data-bg="rgb(186,37,5)">1</div>
+     <div class="ball red__ball" data-bg="rgb(186,37,5)">9</div>
+     <div class="ball red__ball" data-bg="rgb(186,37,5)">17</div>
+     <div class="ball red__ball" data-bg="rgb(186,37,5)">25</div>
+     <div class="ball red__ball" data-bg="rgb(186,37,5)">33</div>
+     <div class="ball red__ball" data-bg="rgb(186,37,5)">41</div>
+  </div>-->
+
+
+
+    <script src="./script.js"></script>
+</body>
+</html>
+
+<!--kada budemo pokazivali broj u kolu, ako vec postoji u arrayu koji prima te brojeve
+onda kreiraj novi broj i provjeri je li u tom arrayu-->
