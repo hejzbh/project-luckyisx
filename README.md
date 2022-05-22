@@ -1,2 +1,2 @@
 # project-luckyisx
-Lucky six
+Projekat radjen prije par mjeseci, nakon zavrsenog ucenja OOP konteksta
